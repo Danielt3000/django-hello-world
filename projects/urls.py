@@ -1,4 +1,4 @@
-"""vercel_app URL Configuration
+"""projects URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -15,15 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from projects import urls
+from projects import views
+
+from rest_framework import routers 
+
+route = routers.DefaultRouter()
+route.register(r"project", views.ProjectViews,"project")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("projects/", include(urls.urlpatterns)),
-    path("mau/", include("mau.urls")),
-    path('users/', include('apps.users.urls')),
-    path('categories/', include('apps.categories.urls')),
-    path('products/', include('apps.products.urls')),
-    path('carts/', include('apps.carts.urls')),
-    path('orders/', include('apps.orders.urls'))
+    path("api/", include(route.urls))
+    
+    # path("api/projects/",views.projects, name ="projects"),
+    # path("api/project/<int:id>", views.project , name="project"),
+    
 ]
